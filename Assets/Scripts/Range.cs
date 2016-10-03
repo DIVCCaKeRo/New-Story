@@ -14,26 +14,26 @@ public class Range : MonoBehaviour {
 	void Update () {
         if (Input.GetKey(KeyCode.D))
         {
-            print("987654321");
-            //Vuforia.DefaultTrackableEventHandler.Ready = true;
+            Vuforia.DefaultTrackableEventHandler.Ready = true;
         }
-        //Vector3 Pos = gameObject.transform.position;
-        //gameObject.transform.position = new Vector3(Mathf.Clamp(Pos.x, -8.0f, 8.0f), Mathf.Clamp(Pos.y, -1.0f, 18.0f), Mathf.Clamp(Pos.z,-15.0f ,0.0f ));             
+        Vector3 Pos = gameObject.transform.position;
+       // gameObject.transform.position = new Vector3(Mathf.Clamp(Pos.x, -8.0f, 8.0f), Mathf.Clamp(Pos.y, -1.0f, 18.0f), Mathf.Clamp(Pos.z,-15.0f ,0.0f ));             
     }
     void OnCollisionEnter(Collision test) 
     {
         now = Time.time;
-        print(now);
         if (test.gameObject.name == "Cylinder") 
         {
             if(now-last>=5.0f)
-               temp = (GameObject)Instantiate(explosion, transform.position, Quaternion.identity);
-               
+            {
+                last = Time.time;
+                temp = (GameObject)Instantiate(explosion, transform.position, Quaternion.identity);
+            }            
         }
     }
     void OnCollisionExit(Collision aaa)
     {
-        last = Time.time;
+       
         if (aaa.gameObject.name == "Cylinder")
         {
             Renderer renderer = aaa.gameObject.GetComponent<Renderer>();
