@@ -4,7 +4,7 @@ using System.Collections;
 public class move : MonoBehaviour
 {
     float stopTime, moveTime, velX, velZ, timeCounter1, timeCounter2;
-    float maxPosX = 0.3f, maxPosZ = 0.5f, minPosX = -0.3f, minPosZ = -0.5f;
+    float maxPosX = 0.2f, maxPosZ = -0.1f, minPosX = -0.1f, minPosZ = -0.3f;
     
     void Start(){
         Change();
@@ -35,19 +35,19 @@ public class move : MonoBehaviour
     void Check(){
         if (transform.localPosition.x > maxPosX){
             velX = -velX;
-            transform.localPosition = new Vector3(maxPosX, 0, transform.localPosition.z);
+            transform.localPosition = new Vector3(maxPosX,Mathf.Clamp(transform.localPosition.y,0.0f, 2.0f) , transform.localPosition.z);
         }
         if (transform.localPosition.x < minPosX){
             velX = -velX;
-            transform.localPosition = new Vector3(minPosX, 0, transform.localPosition.z);
+            transform.localPosition = new Vector3(minPosX, Mathf.Clamp(transform.localPosition.y, 0.0f, 2.0f), transform.localPosition.z);
         }
         if (transform.localPosition.z > maxPosZ){
             velZ = -velZ;
-            transform.localPosition = new Vector3(transform.localPosition.x, 0, maxPosZ);
+            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Clamp(transform.localPosition.y, 0.0f, 2.0f), maxPosZ);
         }
         if (transform.localPosition.z < minPosZ){
             velZ = -velZ;
-            transform.localPosition = new Vector3(transform.localPosition.x, 0, minPosZ);
+            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Clamp(transform.localPosition.y, 0.0f, 2.0f), minPosZ);
         }
     }
 }
