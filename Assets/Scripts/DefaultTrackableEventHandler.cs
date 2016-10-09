@@ -31,7 +31,6 @@ namespace Vuforia
     
         void Start()
         {
-            print("asdfsadf");
             mTrackableBehaviour = GetComponent<TrackableBehaviour>();
             if (mTrackableBehaviour)
             {
