@@ -17,7 +17,7 @@ namespace Vuforia
                                                 ITrackableEventHandler
     {
         
-        public static bool Ready = false,test=true;
+        public static bool Ready = true,test=true;
         
         #region PRIVATE_MEMBER_VARIABLES
 
@@ -35,7 +35,7 @@ namespace Vuforia
             if (mTrackableBehaviour)
             {
                 mTrackableBehaviour.RegisterTrackableEventHandler(this);
-            }
+            } 
         }
         void Update()
         {    
