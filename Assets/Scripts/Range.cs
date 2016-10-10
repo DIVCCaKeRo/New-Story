@@ -19,27 +19,29 @@ public class Range : MonoBehaviour {
         Vector3 Pos = gameObject.transform.position;
        // gameObject.transform.position = new Vector3(Mathf.Clamp(Pos.x, -8.0f, 8.0f), Mathf.Clamp(Pos.y, -1.0f, 18.0f), Mathf.Clamp(Pos.z,-15.0f ,0.0f ));             
     }
-    void OnCollisionEnter(Collision test) 
+    void OnCollisionEnter(Collision test)
     {
         now = Time.time;
-        if (test.gameObject.name == "Cylinder") 
+        if (test.gameObject.name == "Cylinder")
         {
-            if(now-last>=5.0f)
+            if (now - last >= 5.0f)
             {
                 last = Time.time;
                 temp = (GameObject)Instantiate(explosion, transform.position, Quaternion.identity);
-            }            
+            }
         }
+       
     }
-    void OnCollisionExit(Collision aaa)
+    void OnCollisionExit(Collision test)
     {
        
-        if (aaa.gameObject.name == "Cylinder")
+        if (test.gameObject.name == "Cylinder")
         {
-            Renderer renderer = aaa.gameObject.GetComponent<Renderer>();
+            Renderer renderer = test.gameObject.GetComponent<Renderer>();
             renderer.material.color = Color.green;
             Destroy(temp);
         }
+        
 
     }
     void OnCollisionStay(Collision aaa)
