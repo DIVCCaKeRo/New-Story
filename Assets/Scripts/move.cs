@@ -9,7 +9,9 @@ public class move : MonoBehaviour
     public GameObject explosion;
     Rigidbody rid ;
     Vector3 materialPos = new Vector3(0, 0, 0);
-    public GameObject material,Exptemp;
+    public GameObject Exptemp;
+    public GameObject material1, material2, material3;
+    public GameObject handmaterial, building;
     GameObject CloneMaterial;
     void Start(){
         Change();
@@ -33,34 +35,76 @@ public class move : MonoBehaviour
             }
             Check();
         }
+        else if (handmaterial.active == true)
+        {
+            
+            transform.position = Vector3.MoveTowards(transform.position, building.transform.position, 5f * Time.deltaTime);
+            if(transform.position == building.transform.position)
+            {
+                building.SetActive(true);
+                IsCollision = false;
+                handmaterial.SetActive(false);
+            }
+            
+
+        }
         else
         {
-            Vector3 centerPos = new Vector3(materialPos.x + 2.8f, materialPos.y, materialPos.z - 1.3f);
+            Vector3 centerPos=new Vector3();
+  
+            if (material1.active == true)
+            {
+                centerPos = material1.transform.position;
+              
+            }
+            if (material2.active == true)
+            {
+                centerPos = material2.transform.position;
+            
+            }
+            if (material3.active == true)
+            {
+                centerPos = material3.transform.position;
+        
+            }
+
             transform.position = Vector3.MoveTowards(transform.position, centerPos, 5f * Time.deltaTime);
             if (transform.position == centerPos)
             {
-                IsCollision = false;
+                //IsCollision = false;
                 rid.isKinematic = false;
                 Destroy(CloneMaterial);
                 Destroy(Exptemp);
+                handmaterial.SetActive(true);
+                material1.SetActive(false);
+                material2.SetActive(false);
+                material3.SetActive(false);
             }
-
+            
         }
+        
+
 
 
     }
+
+    void movetobuild()
+    {
+
+    }
+
     void OnCollisionEnter(Collision hand)
     {  
-        if (hand.gameObject.name == "bone3")
+        if (hand.gameObject.name == "bone3"&&( material1.active == true || material2.active == true || material3.active == true))
         {  
             if(!IsCollision)
             {
                 Exptemp = (GameObject)Instantiate(explosion, transform.position, Quaternion.identity);
                 rid = gameObject.GetComponent<Rigidbody>();
                 rid.isKinematic = true;
-                materialPos.x = Random.Range(-8f, 8f);
-                materialPos.z = Random.Range(-14f, 0.0f);
-                CloneMaterial = (GameObject)Instantiate(material, materialPos, Quaternion.identity);
+                //materialPos.x = Random.Range(-8f, 8f);
+                //materialPos.z = Random.Range(-14f, 0.0f);
+                //CloneMaterial = (GameObject)Instantiate(material, materialPos, Quaternion.identity);
             }
            // print(materialPos.x+ " " + materialPos.z);
 
